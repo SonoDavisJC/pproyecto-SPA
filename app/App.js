@@ -1,5 +1,5 @@
 import { Loader } from './components/Loader.js';
-import { Header } from './components/Header.js';
+import { Header } from './components/header/Header.js';
 import { Main } from './components/Main.js';
 import { Router } from './components/Router.js';
 import { Scrollinfinite } from './helpers/Scroll-infinite.js';

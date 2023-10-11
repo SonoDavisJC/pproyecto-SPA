@@ -1,3 +1,5 @@
+import { YOUR_SERVICE_ID, YOUR_PUBLIC_KEY, YOUR_TEMPLATE_ID } from "../global.js";
+
 export function ContacForm() {
     const $form = document.createElement('form');
     const $styles = document.getElementById('dynamic-styles'); 
@@ -12,44 +14,43 @@ export function ContacForm() {
     // Styled Components
     $styles.innerHTML = `
     .form-contact {
-        margin: 2rem auto;
+        margin: 10px auto;
         padding: 0.5rem;
         max-width: 60%;
         min-width: 285px;
         display: flex;
         flex-direction: column;
-        gap: 5px;
-    }
 
-    .form-contact p {
-        font-weight: bold;
-    }
+        & h3 {
+            margin-bottom: 15px;
+            color: var( --colorBlack3)
+        }
 
-    .form-contact > input {
-        padding: 0.5rem;
-    }
+        & label {
+            font-size: 16px;
+            margin-bottom: 5px
+        }
 
-    span {
-        color: red;
-        font-weight: 700;
-    }
-    `;
+        & span {
+            font-size: 12px;
+            color: red;
+        }
+    }`;
 
     // Code HTML
     $form.innerHTML = `
-    <p>Formulario de Contacto : </p>
-    <label for="input-text"> Nombres </label>
-    <input type="text" name="nombre" id="input-text">
-    <span class="error-name"></span>
+    <h3>Form</h3>
+    <div><label for="input-text"> Nombres :</label><span class="error-name"> </span></div>
+    <input type="text" name="nombre" id="input-name">
     <br>
-    <label for="input-textemail"> Email </label>
-    <input type="email" name="email" id="input-textemail">
-    <span class="error-email"></span>
+    <div>
+    <label for="input-textemail"> Email :</label><span class="error-email"> </span></div>
+    <input type="email" name="email" id="input-email">
     <br>
-    <label for="input-textarea"> Comentario </label>
-    <textarea id="input-textarea" name="comentario"> </textarea>
+    <label for="input-textarea"> Comentario : </label>
+    <textarea id="input-comentario" name="comentario"  rows="4" cols="50"> </textarea>
     <br>
-    <input type="submit" value="Enviar">
+    <input type="submit" value="Send">
     `;
 
     // Code JS
@@ -62,6 +63,7 @@ export function ContacForm() {
                 e.preventDefault();
                 let $name = e.target.nombre.value;
                 let $email = e.target.email.value;
+                let $comentario = e.target.comentario.value
 
                 if($name.length === 0){
                     $error_name.innerHTML = 'Campo nombre vacio'
@@ -70,18 +72,42 @@ export function ContacForm() {
                     $error_email.innerHTML = 'Campo email vacio'
                 }
                 else {
-                    alert('Exacto');
-                    $error_name.innerHTML = '';
-                    $error_email.innerHTML = '';
+
+                    let templateData = {
+                            nombre: $name,
+                            gmail: $email,
+                            comentarios: $comentario
+                    };
+
+                    emailjs.send(YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, templateData, YOUR_PUBLIC_KEY)
+                    .then(function(response) {
+                        //alert('SUCCESS!', response.status, response.text);
+                        alert('Enviado!');
+                        e.target.nombre.value = '';
+                        e.target.email.value = '';
+                        e.target.comentario.value = '';
+                    
+                    }, function(error) {
+                        alert.log('FAILED...', error);
+                    });
+
                 }
             }
         })
     }
 
+   
+
     //Funcion para que el DOM para esperar a que el DOM de este archivo cargue y esta funcion ValidationForm tenga validez. 
+
+
     setTimeout(() => {
         ValidationForm();
     }, 100);
+
+
+    
+    
 
 
     return $form;

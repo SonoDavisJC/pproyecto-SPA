@@ -1,4 +1,4 @@
-import { PostCard } from '../components/PostCard.js';
+import { PostCard } from '../components/posts/PostCard.js';
 import { ResultSearch } from '../components/ResultSearch.js';
 import { ajax } from './ajax.js';
 import api from './wp_api.js';
@@ -18,10 +18,10 @@ export async function Scrollinfinite() {
 
         if(scrollTop + clientHeight >= scrollHeight) {
             api.page += 1;
-            console.log('CARGAR MAS');
-            console.log(api.page);
+            //console.log('CARGAR MAS');
+            //console.log(api.page);
 
-            if (!hash || hash === '#/'){
+            if (hash.includes('#/news')){
                 urlApi = `${api.POSTS}&page=${api.page}`;
                 Conponent = PostCard;
             }
