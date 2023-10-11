@@ -21,12 +21,3 @@ Vista del proyecto 👀 :
 <br />
 
 Bye...
-
-
-
-
-
-
-
-
-
