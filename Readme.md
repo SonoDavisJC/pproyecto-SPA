@@ -21,7 +21,7 @@ Vista del sitio web :
 
 ![The San Juan Mountains are beautiful!](/public/images/view-project-sylvester.PNG "San Juan Mountains")
 <br />
-[Ver el sitio web](https://6539ad2c951c6406838596bf--neon-khapse-949975.netlify.app/)
+[Visitar el sitio web](https://6539ad2c951c6406838596bf--neon-khapse-949975.netlify.app/)
 
 
 
